@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/valueUSDolar" />
 
     <Button
-        android:id="@+id/buttonConvert"
+        android:id="@+id/buttorConvertPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa_semibold"
