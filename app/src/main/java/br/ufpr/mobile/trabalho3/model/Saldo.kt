@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Saldo (
-    val reais: Double,
-    val dolar: Double,
-    val bitcoin: Double
+    var reais: Double,
+    var dolar: Double,
+    var bitcoin: Double
 ) : Parcelable
