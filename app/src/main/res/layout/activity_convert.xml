@@ -134,11 +134,11 @@
         android:text="Converter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/valueConvert"
+        app:layout_constraintStart_toEndOf="@+id/inputValue"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/valueConvert"
+        android:id="@+id/inputValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -154,8 +154,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/valueConvert"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/inputValue"
         tools:layout_editor_absoluteX="181dp" />
 
     <TextView
@@ -166,16 +166,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonVoltar" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valueConvert" />
+        app:layout_constraintTop_toBottomOf="@+id/inputValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
