@@ -173,9 +173,9 @@ class ConvertActivity : AppCompatActivity() {
 
     private fun getCurrency(rGroup: RadioGroup): String {
         return when (rGroup.checkedRadioButtonId) {
-            1 -> "BRL"
-            2 -> "USD"
-            3 -> "BTC"
+            R.id.radioButton, R.id.radioButton5 -> "BRL"
+            R.id.radioButton2, R.id.radioButton6 -> "USD"
+            R.id.radioButton3, R.id.radioButton7 -> "BTC"
             else -> ""
         }
     }
