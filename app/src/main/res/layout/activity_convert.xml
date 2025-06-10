@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:text="Converter Ativos"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:text="Origem"
         android:textSize="16sp"
@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Destino"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,18 +119,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
         android:rotationY="180"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/radioGroup"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/radioGroup2"
-        app:srcCompat="?attr/actionModeCloseDrawable"
-        tools:layout_editor_absoluteY="221dp" />
+        app:layout_constraintTop_toTopOf="@+id/radioGroup2"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <Button
         android:id="@+id/buttonConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="16dp"
         android:text="Converter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -141,10 +142,12 @@
         android:id="@+id/inputValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="Digite um valor"
         android:inputType="numberDecimal"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -155,8 +158,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/inputValue"
-        tools:layout_editor_absoluteX="181dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputValue" />
 
     <TextView
         android:id="@+id/responseText"
