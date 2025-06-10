@@ -44,9 +44,9 @@ class MainActivity : AppCompatActivity() {
                 val data = result.data
                 if (data != null) {
                     val tempsaldos = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        data.getParcelableExtra("saldo", Saldo::class.java)
+                        data.getParcelableExtra("saldos", Saldo::class.java)
                     } else {
-                        data.getParcelableExtra("saldo")
+                        data.getParcelableExtra("saldos")
                     }
                     tempsaldos?.let {
                         saldos = it

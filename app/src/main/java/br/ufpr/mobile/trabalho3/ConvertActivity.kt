@@ -1,5 +1,6 @@
 package br.ufpr.mobile.trabalho3
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -48,19 +49,21 @@ class ConvertActivity : AppCompatActivity() {
         valueConvert = findViewById(R.id.inputValue)
         buttonConvert = findViewById(R.id.buttonConvert)
         progressBar = findViewById(R.id.progressBar)
-        progressBar.visibility = View.GONE
         buttonVoltar = findViewById(R.id.buttonVoltar)
         responseText = findViewById(R.id.responseText)
+        progressBar.visibility = View.GONE
 
         val bundle = intent.extras
         if (bundle != null) {
-            val user = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 bundle.getParcelable("saldos", Saldo::class.java)
             } else {
                 bundle.getParcelable("saldos")
             }
-            if (user == null) {
+            if (data == null) {
                 responseText.text = "Algo deu errado. Tente novamente mais tarde."
+            } else {
+                saldos = data
             }
         }
 
@@ -68,18 +71,18 @@ class ConvertActivity : AppCompatActivity() {
             val intent = Intent(this, ConvertActivity::class.java).apply {
                 putExtra("saldos", saldos)
             }
-            setResult(RESULT_OK, intent)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
 
         buttonConvert.setOnClickListener {
             showLoading()
 
-            val originCurrency = getCurrency(radioGroup)
-            val destinationCurrency = getCurrency(radioGroup2)
-            var value = valueConvert.text.toString().toDouble()
-            var convertedValue: Double = 0.0
-            var availableCurrencie: AvailableCurrencies? = null
+            var convertedValue: Double
+            val originCurrency = getCurrency(radioGroup2)
+            val destinationCurrency = getCurrency(radioGroup)
+            val value = valueConvert.text.toString().toDouble()
+            var availableCurrencies: AvailableCurrencies? = null
 
             when (originCurrency) {
                 "BRL" -> {
@@ -89,8 +92,8 @@ class ConvertActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                     when (destinationCurrency) {
-                        "USD" -> availableCurrencie = AvailableCurrencies.BRLUSD
-                        "BTC" -> availableCurrencie = AvailableCurrencies.BRLBTC
+                        "USD" -> availableCurrencies = AvailableCurrencies.BRLUSD
+                        "BTC" -> availableCurrencies = AvailableCurrencies.BRLBTC
                     }
                 }
 
@@ -101,8 +104,8 @@ class ConvertActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                     when (destinationCurrency) {
-                        "BRL" -> availableCurrencie = AvailableCurrencies.USDBRL
-                        "BTC" -> availableCurrencie = AvailableCurrencies.USDBTC
+                        "BRL" -> availableCurrencies = AvailableCurrencies.USDBRL
+                        "BTC" -> availableCurrencies = AvailableCurrencies.USDBTC
                     }
                 }
 
@@ -113,8 +116,8 @@ class ConvertActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                     when (destinationCurrency) {
-                        "BRL" -> availableCurrencie = AvailableCurrencies.BTCBRL
-                        "USD" -> availableCurrencie = AvailableCurrencies.BTCUSD
+                        "BRL" -> availableCurrencies = AvailableCurrencies.BTCBRL
+                        "USD" -> availableCurrencies = AvailableCurrencies.BTCUSD
                     }
                 }
             }
@@ -125,7 +128,7 @@ class ConvertActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (availableCurrencie == null) {
+            if (availableCurrencies == null) {
                 responseText.text = "Selecione uma moeda origem e uma moeda destino válida."
                 hideLoading()
                 return@setOnClickListener
@@ -139,7 +142,7 @@ class ConvertActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 convertedValue = withContext(Dispatchers.Main) {
-                    service.getConversao(availableCurrencie, value)
+                    service.getConversao(availableCurrencies, value)
                 }
 
                 when (originCurrency) {
@@ -165,9 +168,9 @@ class ConvertActivity : AppCompatActivity() {
                         }
                     }
                 }
-
+                responseText.text = "Conversão bem sucedida!"
+                hideLoading()
             }
-            hideLoading()
         }
     }
 
@@ -182,13 +185,13 @@ class ConvertActivity : AppCompatActivity() {
 
     private fun showLoading() {
         progressBar.visibility = View.VISIBLE
-        responseText.visibility = View.GONE
-        buttonVoltar.visibility = View.GONE
+        responseText.visibility = View.INVISIBLE
+        buttonVoltar.visibility = View.INVISIBLE
         buttonConvert.isEnabled = false
     }
 
     private fun hideLoading() {
-        progressBar.visibility = View.GONE
+        progressBar.visibility = View.INVISIBLE
         responseText.visibility = View.VISIBLE
         buttonVoltar.visibility = View.VISIBLE
         buttonConvert.isEnabled = true

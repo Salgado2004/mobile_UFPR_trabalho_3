@@ -9,18 +9,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Service {
-
-    private lateinit var currencyAPI: CurrencyAPI
     private lateinit var envelope: Envelope
 
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://economia.awesomeapi.com.br")
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("https://economia.awesomeapi.com.br/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-    init {
-        currencyAPI = retrofit.create(CurrencyAPI::class.java)
-    }
+    private val currencyAPI: CurrencyAPI = retrofit.create(CurrencyAPI::class.java)
 
     suspend fun getConversao(moedas: AvailableCurrencies, valor: Double): Double{
         try{
